@@ -1,0 +1,9 @@
+# Supabase Edge Function: Appointment Reminders
+# Runs every 30 minutes to check upcoming appointments and send SMS reminders
+
+[functions.appointment-reminders]
+enabled = true
+verify_jwt = false
+
+[functions.appointment-reminders.schedule]
+cron = "*/30 * * * *"

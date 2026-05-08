@@ -1,0 +1,57 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "name": "timer-mn",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "regions": ["sin1"],
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
+    "NEXT_PUBLIC_MAPBOX_TOKEN": "@next_public_mapbox_token",
+    "NEXT_PUBLIC_APP_URL": "@next_public_app_url",
+    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "QPAY_USERNAME": "@qpay_username",
+    "QPAY_PASSWORD": "@qpay_password",
+    "QPAY_INVOICE_CODE": "@qpay_invoice_code",
+    "SMS_API_KEY": "@sms_api_key",
+    "SMS_API_SECRET": "@sms_api_secret",
+    "SMS_SENDER_ID": "@sms_sender_id",
+    "SMS_API_URL": "@sms_api_url"
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/appointment-reminders",
+      "schedule": "*/30 * * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/business",
+      "destination": "/business/dashboard"
+    }
+  ]
+}
